@@ -1,15 +1,15 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg:         #0f1117;
-  --surface:    #161921;
-  --border:     #232736;
-  --text:       #dde2f0;
-  --muted:      #7b8099;
-  --blue:       #2563eb;
-  --blue-light: #3b82f6;
-  --charcoal:   #1a1d26;
-  --code-bg:    #0d1117;
+  --bg:         #0d1520;
+  --surface:    #131e2d;
+  --border:     #1e2d3d;
+  --text:       #d8e4f0;
+  --muted:      #6e8299;
+  --blue:       #304060;
+  --blue-light: #4a7090;
+  --charcoal:   #141e2b;
+  --code-bg:    #0a1018;
   --font-sans:  'Inter', system-ui, -apple-system, sans-serif;
   --font-mono:  'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
 }
@@ -54,7 +54,7 @@ pre {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(15,17,23,0.88);
+  background: rgba(13,21,32,0.90);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
 }
@@ -72,6 +72,11 @@ pre {
   align-items: center;
   gap: 0.5rem;
   text-decoration: none;
+}
+.nav-logo-img {
+  height: 28px;
+  width: auto;
+  object-fit: contain;
 }
 .nav-links { display: flex; gap: 1.5rem; align-items: center; }
 .nav-links a { color: var(--muted); font-size: 0.9rem; }
@@ -116,7 +121,7 @@ h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; }
 .hero { padding: 7rem 1.5rem 5rem; text-align: center; position: relative; overflow: hidden; }
 .hero-glow {
   position: absolute; inset: 0;
-  background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(37,99,235,0.14), transparent);
+  background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(48,64,96,0.22), transparent);
   pointer-events: none;
 }
 .hero-badge {
