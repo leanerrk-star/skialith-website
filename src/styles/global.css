@@ -258,7 +258,7 @@ h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; }
 .latency-value-muted { font-size: 0.85rem; color: var(--muted); }
 .bar-track { height: 10px; background: var(--border); border-radius: 999px; overflow: hidden; }
 .bar-fill { height: 100%; background: var(--blue); border-radius: 999px; }
-.bar-fill-empty { height: 100%; width: 100%; background: var(--charcoal); border-radius: 999px; }
+.bar-fill-empty { height: 100%; width: 100%; background: linear-gradient(90deg, #5a2020, #8b3a3a); opacity: 0.7; border-radius: 999px; }
 .latency-note { font-size: 0.75rem; color: var(--muted); margin-top: 1rem; }
 
 /* CARDS */
