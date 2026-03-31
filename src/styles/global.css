@@ -14,6 +14,103 @@
   --font-mono:  'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
 }
 
+/* STATUS BANNER */
+.status-banner {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0.55rem 1.5rem;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--muted);
+  letter-spacing: 0.03em;
+}
+.status-banner strong {
+  color: var(--navy-bright);
+  font-weight: 600;
+}
+.status-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--navy-bright);
+  margin-right: 0.5rem;
+  vertical-align: middle;
+  animation: pulse 2.4s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.35; }
+}
+
+/* RFC SECTION */
+.rfc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+  margin-top: 2.5rem;
+}
+.rfc-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.5rem;
+}
+.rfc-card-num {
+  font-size: 0.7rem;
+  font-family: var(--font-mono);
+  color: var(--navy-light);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.6rem;
+}
+.rfc-card p { font-size: 0.875rem; }
+
+/* ECOSYSTEM CALLOUT */
+.ecosystem-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-top: 2.5rem;
+}
+.ecosystem-half {
+  padding: 2rem 2.5rem;
+}
+.ecosystem-half + .ecosystem-half {
+  border-left: 1px solid var(--border);
+  background: linear-gradient(135deg, var(--surface) 0%, var(--charcoal) 100%);
+}
+.ecosystem-tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--navy-light);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.2rem 0.5rem;
+  margin-bottom: 1rem;
+}
+.ecosystem-tag.accent {
+  color: var(--navy-bright);
+  border-color: var(--navy);
+}
+.ecosystem-half h3 { font-size: 1.05rem; margin-bottom: 0.6rem; }
+.ecosystem-half p  { font-size: 0.875rem; }
+.ecosystem-connector {
+  text-align: center;
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--border);
+  font-size: 0.8rem;
+  color: var(--muted);
+  background: var(--bg);
+}
+
 html { scroll-behavior: smooth; }
 
 body {

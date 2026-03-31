@@ -55,6 +55,12 @@ const writePath = [
 ---
 <Base>
 
+<div class="status-banner">
+  <span class="status-dot"></span>
+  <strong>Project Status: Research &amp; Specification Phase</strong>
+  &nbsp;&mdash;&nbsp; Active development of the Lithic State Specification and reference implementation. Not yet production-stable.
+</div>
+
 <nav class="nav">
   <div class="nav-inner container">
     <a href="/" class="nav-logo">
@@ -63,7 +69,7 @@ const writePath = [
     </a>
     <div class="nav-links">
       <a href="https://github.com/leanerrk-star/skialith" target="_blank" rel="noopener">GitHub</a>
-      <a href="#design-partner" class="btn btn-primary btn-sm">Request access</a>
+      <a href="#design-partner" class="btn btn-primary btn-sm">Join Validation Program</a>
     </div>
   </div>
 </nav>
@@ -88,7 +94,7 @@ const writePath = [
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
         View on GitHub
       </a>
-      <a href="#design-partner" class="btn btn-ghost">Request early access &rarr;</a>
+      <a href="#design-partner" class="btn btn-ghost">Join technical validation &rarr;</a>
     </div>
     <div class="latency-card">
       <p class="latency-label">Per-event write latency &middot; p50</p>
@@ -206,6 +212,38 @@ const writePath = [
   </div>
 </section>
 
+<section class="section-bg">
+  <div class="container">
+    <p class="section-label">Ecosystem</p>
+    <h2>The missing persistence layer.</h2>
+    <p style="color:var(--muted);max-width:620px;font-size:1.05rem;margin-bottom:0;">
+      KV-cache optimizations like TurboQuant compress volatile memory to make inference cheaper.
+      Skialith provides what compressed volatile memory structurally cannot &mdash; durable, crash-recoverable state across the full agent lifecycle.
+    </p>
+    <div class="ecosystem-card">
+      <div class="ecosystem-half">
+        <span class="ecosystem-tag">Compute efficiency</span>
+        <h3>KV-Cache Compression</h3>
+        <p style="color:var(--muted);">
+          Techniques like TurboQuant shrink attention caches 6&times;, reducing the per-token cost of long-context inference.
+          Volatile by design &mdash; lives only for the duration of a single forward pass.
+        </p>
+      </div>
+      <div class="ecosystem-half">
+        <span class="ecosystem-tag accent">Durable persistence</span>
+        <h3>Skialith State Plane</h3>
+        <p style="color:var(--muted);">
+          Persists agent checkpoints, tool call results, and step events across process boundaries.
+          Survives crashes, restarts, and preemptions &mdash; providing the long-horizon memory that volatile KV caches cannot.
+        </p>
+      </div>
+    </div>
+    <div class="ecosystem-connector">
+      As inference costs fall, agents run longer and attempt more complex tasks &mdash; raising the cost of a failed run and the value of a durable state layer.
+    </div>
+  </div>
+</section>
+
 <section>
   <div class="container">
     <p class="section-label">Integrations</p>
@@ -228,14 +266,56 @@ const writePath = [
   </div>
 </section>
 
+<section>
+  <div class="container">
+    <p class="section-label">Reference Implementation &middot; RFC</p>
+    <h2>Defining the standard for<br/>distributed agentic state.</h2>
+    <p style="color:var(--muted);max-width:640px;font-size:1.05rem;margin-bottom:0;">
+      Skialith is both a working implementation and a living specification &mdash; the
+      <strong style="color:var(--text);">Lithic State Specification</strong> &mdash; for how AI agents should persist,
+      recover, and resume state across distributed infrastructure.
+      The goal is a community-ratified standard that any runtime, framework, or cloud provider can implement.
+    </p>
+    <div class="rfc-grid">
+      <div class="rfc-card">
+        <div class="rfc-card-num">LSS-01</div>
+        <h3>Durable Event Log</h3>
+        <p>Every agent action emits a structured, ordered event. The log is the source of truth &mdash; the database is a derived read model.</p>
+      </div>
+      <div class="rfc-card">
+        <div class="rfc-card-num">LSS-02</div>
+        <h3>Idempotent Checkpoints</h3>
+        <p>Checkpoints are content-addressed by <code>(agent_id, step_index)</code>. Retries are safe by construction &mdash; no deduplication logic required in application code.</p>
+      </div>
+      <div class="rfc-card">
+        <div class="rfc-card-num">LSS-03</div>
+        <h3>Resumable Execution</h3>
+        <p>Any agent process can call <code>resume()</code> and reconstruct its exact prior state from the log, regardless of how it terminated.</p>
+      </div>
+      <div class="rfc-card">
+        <div class="rfc-card-num">LSS-04</div>
+        <h3>Transport Agnostic</h3>
+        <p>The specification defines semantics, not wire protocol. The reference implementation uses NATS JetStream; the spec is open to Kafka, Redpanda, or custom transports.</p>
+      </div>
+    </div>
+    <p style="margin-top:2rem;font-size:0.875rem;color:var(--muted);">
+      Contribute to the specification &rarr;
+      <a href="https://github.com/leanerrk-star/skialith" target="_blank" rel="noopener">github.com/leanerrk-star/skialith</a>
+    </p>
+  </div>
+</section>
+
 <section id="design-partner" class="section-bg">
   <div class="container" style="max-width:640px;">
-    <p class="section-label">Design Partner Program</p>
-    <h2>Building agents at scale?</h2>
-    <p style="color:#7b8099;font-size:1.05rem;margin-bottom:2.5rem;">
-      We are collaborating with a small number of teams running AI agents in production.
-      If you are hitting the limits of existing checkpointing approaches and want to shape
-      what we build next, we would like to hear from you.
+    <p class="section-label">Collaborative Technical Validation</p>
+    <h2>Help shape the specification.</h2>
+    <p style="color:var(--muted);font-size:1.05rem;margin-bottom:1.25rem;">
+      We are working with a small number of engineering teams to stress-test the Lithic State Specification
+      against real distributed agent workloads. This is a technical collaboration, not a sales process.
+    </p>
+    <p style="color:var(--muted);font-size:0.9rem;margin-bottom:2.5rem;">
+      Participants get early access to the reference implementation, direct input on the RFC,
+      and co-authorship credit on the specification where contributions are substantial.
     </p>
     <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" id="partner-form" class="form-grid">
       <div class="form-row">
@@ -244,7 +324,7 @@ const writePath = [
           <input id="fname" name="name" type="text" required class="field" />
         </div>
         <div>
-          <label class="form-label" for="fcompany">Company</label>
+          <label class="form-label" for="fcompany">Organisation</label>
           <input id="fcompany" name="company" type="text" class="field" />
         </div>
       </div>
@@ -253,12 +333,12 @@ const writePath = [
         <input id="femail" name="email" type="email" required class="field" />
       </div>
       <div>
-        <label class="form-label" for="fusecase">What are you building?</label>
-        <textarea id="fusecase" name="usecase" rows="3" required class="field"></textarea>
+        <label class="form-label" for="fusecase">Describe your agent architecture and the state failures you are experiencing</label>
+        <textarea id="fusecase" name="usecase" rows="4" required class="field"></textarea>
       </div>
       <div class="form-footer">
-        <button type="submit" class="btn btn-primary" id="submit-btn">Send request</button>
-        <span class="form-alt">or email <a href="mailto:hello@skialith.io">hello@skialith.io</a> directly</span>
+        <button type="submit" class="btn btn-primary" id="submit-btn">Submit for review</button>
+        <span class="form-alt">or reach out at <a href="mailto:hello@skialith.io">hello@skialith.io</a></span>
       </div>
     </form>
   </div>
