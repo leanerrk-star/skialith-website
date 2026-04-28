@@ -57,8 +57,8 @@ const writePath = [
 
 <div class="status-banner">
   <span class="status-dot"></span>
-  <strong>Project Status: Research &amp; Specification Phase</strong>
-  &nbsp;&mdash;&nbsp; Active development of the Lithic State Specification and reference implementation. Not yet production-stable.
+  <strong>Project Status: Active Research</strong>
+  &nbsp;&mdash;&nbsp; Reference implementation validated against production-scale distributed systems. Lithic State Specification in active development.
 </div>
 
 <nav class="nav">
@@ -82,12 +82,13 @@ const writePath = [
       Open source &middot; BUSL 1.1 &middot; Free to self-host
     </div>
     <h1 class="hero-title">
-      AI agents that<br/>
-      <span class="hero-title-accent">survive failures</span>
+      The durability layer<br/>
+      <span class="hero-title-accent">production AI agents are missing.</span>
     </h1>
     <p class="hero-sub">
-      Write-ahead log via NATS JetStream. Batched persistence to your database.
-      <strong>7&times; faster</strong> than checkpointing directly to a database &mdash; and crash-recoverable.
+      Skialith gives every agent a complete, ordered history of its state transitions &mdash;
+      enabling <strong>crash recovery, replay, drift detection, and forensic audit</strong>
+      that no framework can replicate with a library update.
     </p>
     <div class="hero-ctas">
       <a href="https://github.com/leanerrk-star/skialith" class="btn btn-primary" target="_blank" rel="noopener">
@@ -123,10 +124,11 @@ const writePath = [
 <section class="section-bg">
   <div class="container">
     <p class="section-label">The problem</p>
-    <h2>Agents fail. Restarts are expensive.</h2>
+    <h2>95% of AI agents fail in production.</h2>
     <p style="color:#7b8099;max-width:620px;font-size:1.05rem;margin-bottom:3rem;">
       A multi-step agent that crashes mid-run loses all progress and replays every LLM call from the beginning.
-      Existing checkpointers write synchronously to a database &mdash; making every event as slow as a database round-trip.
+      Existing frameworks offer no crash recovery, no audit trail, and no visibility into what the agent actually did &mdash;
+      making debugging, compliance, and reliable orchestration structurally impossible.
     </p>
     <div class="card-grid">
       <div class="card">
@@ -297,11 +299,64 @@ const writePath = [
         <h3>Transport Agnostic</h3>
         <p>The specification defines semantics, not wire protocol. The reference implementation uses NATS JetStream; the spec is open to Kafka, Redpanda, or custom transports.</p>
       </div>
+      <div class="rfc-card">
+        <div class="rfc-card-num">LSS-05</div>
+        <h3>Observable State</h3>
+        <p>Every state transition is structured, queryable, and exportable. Operators can introspect, diff, and audit the full lifecycle of any agent run without modifying application code.</p>
+      </div>
+      <div class="rfc-card">
+        <div class="rfc-card-num">LSS-06</div>
+        <h3>Bounded Hot Path</h3>
+        <p>The write path from agent call to durability acknowledgement must complete in sub-millisecond time under normal operating conditions, regardless of database backpressure.</p>
+      </div>
     </div>
     <p style="margin-top:2rem;font-size:0.875rem;color:var(--muted);">
       Contribute to the specification &rarr;
       <a href="https://github.com/leanerrk-star/skialith" target="_blank" rel="noopener">github.com/leanerrk-star/skialith</a>
     </p>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <p class="section-label">Managed Control Plane &middot; Roadmap</p>
+    <h2>From durable log to full agent observability.</h2>
+    <p style="color:var(--muted);max-width:640px;font-size:1.05rem;margin-bottom:2.5rem;">
+      The open-source core provides the durable event log. The managed control plane turns that log into
+      actionable visibility &mdash; features that cannot be retrofitted by any framework that does not own the state layer.
+    </p>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-icon">&#128200;</div>
+        <h3>State Drift Visualization</h3>
+        <p>Compare expected vs. actual agent state at any step. Detect regressions before they reach production.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">&#9654;</div>
+        <h3>Agent Replay &amp; Time-Travel Debug</h3>
+        <p>Rewind any agent run to an exact step and replay forward. Reproduce bugs deterministically without re-running LLM calls.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">&#128279;</div>
+        <h3>Cross-Agent State Lineage</h3>
+        <p>Trace how state flows across agent boundaries in multi-agent pipelines. Identify the exact handoff that caused a downstream failure.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">&#127758;</div>
+        <h3>Multi-Region Durability</h3>
+        <p>Replicate the event log across regions for geo-redundant recovery. Agents survive regional outages without losing a single step.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">&#128737;</div>
+        <h3>Resume Insurance Analytics</h3>
+        <p>Quantify the cost of failed runs &mdash; token spend, wall-clock time, and downstream impact &mdash; to make the case for durability budgets.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">&#127970;</div>
+        <h3>Sovereign VPC Deployment</h3>
+        <p>Deploy the control plane into your own cloud account. Agent state never leaves your infrastructure &mdash; required for regulated industries.</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -352,6 +407,10 @@ const writePath = [
         <p class="footer-copy">
           Released under <a href="https://github.com/leanerrk-star/skialith/blob/main/LICENSE" target="_blank" rel="noopener">BUSL 1.1</a>
           &mdash; free to self-host. Questions: <a href="mailto:hello@skialith.io">hello@skialith.io</a>
+        </p>
+        <p class="footer-copy" style="margin-top:0.5rem;">
+          Skialith is an independent research and specification project. The Lithic State Specification (LSS) is an open standard
+          developed for community review and adoption. No commercial entity has been formed.
         </p>
       </div>
       <div class="footer-links">
